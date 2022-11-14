@@ -1,11 +1,9 @@
 div.icon_container{
     padding: 10px;
-    border: 2.5px solid black;
     margin: .5px;
 }
 
 img{
-    border: 2.5px solid lightslategray;
     margin: 2.5px;
     height: 40px;
     width: 40px;
