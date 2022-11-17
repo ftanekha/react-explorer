@@ -1,11 +1,13 @@
-import './App.css';
+import FsInfoApp from './components/userFileSystemInfo/FsInfoApp.js'
+import OsInfoApp from './components/userOsInfo/FsInfoApp.js'
 
 function App() {
-  return (
-    <div className="App">
-      <p className='text-blue-600'>hi world</p>
-    </div>
-  );
+    return (
+        <div className='App'>
+            <OsInfoApp />
+            <FsInfoApp />
+        </div>
+    )
 }
 
-export default App;
+export default App

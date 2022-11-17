@@ -10,9 +10,9 @@ const OsInfoApp = () => {
     useEffect(
         ()=> {
             fetch(userURI)
-            .then(userOsData => userOsData.json())
+            .then(userData => userData.json())
             .then(
-                userOsData => setUserOsInfo(Object.entries(userOsData)),
+                userData => setUserOsInfo(Object.entries(userData[0])),
                 err => console.warn(`${err.code}: ${err.message}`)
             )
         }
@@ -20,11 +20,11 @@ const OsInfoApp = () => {
     )
 
     return (
-        <div>
+        <div className='w-1/4 mt-10 mx-auto text-gray-300'>
             <table className='table-auto'>
                 <thead>
-                    <tr>
-                        <th>Operation System Information</th>
+                    <tr className='text-center'>
+                        <th className='text-xl pb-6' colSpan={2}>Operation System Information</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,8 +34,8 @@ const OsInfoApp = () => {
                             entry => 
                             {
                                 return (
-                                    <tr key={entry[0]}>
-                                        <td key={entry[0]}>{entry[0]}</td>
+                                    <tr key={entry[0]} className='text-center'>
+                                        <td key={entry[0]} className='p-2 uppercase'>{entry[0]}</td>
                                         <td key={`${entry[0]}_value`}>{entry[1]}</td>
                                     </tr>
                                 )
