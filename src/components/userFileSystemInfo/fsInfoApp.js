@@ -20,17 +20,17 @@ function App(){
     )
 
     return (
-        <div>
+        <div className='m-10'>
             {
                 userFsInfo.map(
                     (file , index)=> {
                         return (
-                            <div key={`${file.title}_container`} className='icon_container flex flex-row' style={{width: '50%', backgroundColor: 'dimgrey', margin: 'auto'}}>
+                            <div key={`${file.title}_container`} className='icon_container flex flex-row bg-gray-500 pl-1 pt-1'>
                                 <div key={`${file.title}_icon_container`}>
                                     <File key={file.title} title={file.title} extName={file.extName}/> <br/>
                                 </div>
-                                <div key={`${file.title}_title_container`} style={{ paddingTop: '15px'}}>
-                                    <span key={`entry ${index}`} className='file_title font-bold'>{file.title}</span>
+                                <div key={`${file.title}_title_container`} className='pt-4'>
+                                    <span key={`entry ${index}`} className='file_title font-bold text-gray-800'>{file.title}</span>
                                 </div>
                             </div>
                         )
