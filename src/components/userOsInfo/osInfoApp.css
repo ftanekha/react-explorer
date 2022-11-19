@@ -1,0 +1,23 @@
+@keyframes fadeOut{
+    0% {
+        opacity: 1
+    }
+    25%{
+        opacity: .7
+    }
+    50%{
+        opacity: .4
+    }
+    75%{
+        opacity: .1
+    }
+    100% {
+        opacity: 0
+    }
+}
+
+.osInfoApp{
+    animation-name: fadeOut;
+    animation-duration: 15s;
+    animation-delay: 15s;
+}
