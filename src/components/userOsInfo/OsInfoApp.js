@@ -26,7 +26,7 @@ const OsInfoApp = () => {
 
             return ()=> clearTimeout(toggleOsDisplay)
         }
-        ,[osDisplay]
+        ,[]
     )
 
 
