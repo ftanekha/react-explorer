@@ -5,9 +5,8 @@ const fetch = require('node-fetch');
 const userURI = 'http://127.0.0.1:3000/'
 
 
-const OsInfoApp = () => {
+const OsInfoApp = ({osDisplay}) => {
     const [userOsInfo, setUserOsInfo] = useState([])
-    let [osDisplay, setOsDisplay] = useState(true)
     // get userOsInfo on first render
     useEffect(
         ()=> {
@@ -17,14 +16,6 @@ const OsInfoApp = () => {
                 userData => setUserOsInfo(Object.entries(userData[0])),
                 err => console.warn(`${err.code}: ${err.message}`)
             )
-
-            const toggleOsDisplay = setTimeout
-            (
-                ()=> setOsDisplay(!osDisplay),
-                3e4
-            )
-
-            return ()=> clearTimeout(toggleOsDisplay)
         }
         ,[]
     )

@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const os = require('node:os')
-const fs = require('node:fs')
+const {readdir} = require('node:fs')
 const path = require('node:path')
 
 const homeDir = os.homedir()
@@ -17,7 +17,7 @@ app.get(
     (req, res)=>
     {
 
-        fs.readdir(
+        readdir(
             homeDir,
             (err, files)=> 
             {
@@ -28,7 +28,8 @@ app.get(
                     file => homeDirFiles.push(
                         {
                             title: file,
-                            extName: path.extname(file)
+                            //extName: path.extname(file)
+                            type: file.isDirectory()? 'directory': 'file'
                         }
                     )
                 )

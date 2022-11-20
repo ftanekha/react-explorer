@@ -19,7 +19,7 @@ app.get(
     {
 
         fs.readdir(
-            homeDir,
+            homeDir, {withFileTypes: true},
             (err, files)=> 
             {
                 if(err) return console.error(`${err.code}: ${err.message}`)
@@ -28,8 +28,8 @@ app.get(
                 files.forEach(
                     file => homeDirFiles.push(
                         {
-                            title: file,
-                            extName: path.extname(file)
+                            title: file.name,
+                            type: file.isDirectory()? 'directory': 'file'
                         }
                     )
                 )

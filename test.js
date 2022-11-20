@@ -1,13 +1,33 @@
-const fetch = require('node-fetch');
+const {readdir} = require('node:fs')
+const {homedir} = require('node:os')
 
-const userURI = 'http://127.0.0.1:3000/'
+// readdir(
+//     homedir(), {withFileTypes: true},
+//     (err, data)=>
+//     {
+//         if(err) return console.error('fuuuuuck!')
+//         data.forEach(
+//             entry => {
+//                 if(entry.isDirectory()) console.log(entry.name, 'directory')
+//                 console.log(entry.name, 'file')
+//             }
+//         )
+//     }
+// )
 
-fetch(userURI, {mode: "no-cors"})
-.then(data => data.json())
-.then(data => {
-    const obj = Object.assign({}, data)
+readdir(
+    homedir(), {withFileTypes: true},
+    (err, files)=> 
+    {
+        if(err) return console.error(`${err.code}: ${err.message}`)
 
-    for(let i in obj) console.log(i)
-})
-.catch(err => console.error(err.code))
+        const homeDirFiles = []
+        files.forEach(
+            file => console.log(
+             file.isDirectory()? 1: 0
+            )
+        )
 
+        console.log()
+    }
+)

@@ -27,7 +27,7 @@ function App(){
                         return (
                             <div key={`${file.title}_container`} className='icon_container flex flex-row pl-1 pt-1'>
                                 <div key={`${file.title}_icon_container`}>
-                                    <File key={file.title} title={file.title} extName={file.extName}/> <br/>
+                                    <File key={file.title} title={file.title} type={file.type}/> <br/>
                                 </div>
                                 <div key={`${file.title}_title_container`} className='pt-4'>
                                     <span key={`entry ${index}`} className='file_title font-bold text-gray-800 hover:underline'>{file.title}</span>
