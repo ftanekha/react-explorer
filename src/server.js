@@ -2,7 +2,6 @@ const express = require('express')
 const cors = require('cors')
 const os = require('node:os')
 const fs = require('node:fs')
-const path = require('node:path')
 
 const userOsInfo = require('./components/userOsInfo/osInfo.js')
 const homeDir = os.homedir()

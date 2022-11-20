@@ -28,7 +28,6 @@ app.get(
                     file => homeDirFiles.push(
                         {
                             title: file,
-                            //extName: path.extname(file)
                             type: file.isDirectory()? 'directory': 'file'
                         }
                     )

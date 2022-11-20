@@ -31,27 +31,3 @@
   animation-duration: 3s;
   animation-delay: 29s;
 }
-
-/* @keyframes rollIn{
-  0% {
-      left: 0
-  }
-  25%{
-      left:10%
-  }
-  50%{
-      left: 20%
-  }
-  75%{
-      opacity: 30%
-  }
-  100% {
-      opacity: 47.5%
-  }
-}
-
-.rollingButton{
-  animation-name: rollIn;
-  animation-duration: 10s;
-  animation-delay: 30s;
-} */
