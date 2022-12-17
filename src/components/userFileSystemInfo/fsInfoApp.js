@@ -30,7 +30,7 @@ function App(){
                                     <File key={file.title} title={file.title} type={file.type}/> <br/>
                                 </div>
                                 <div key={`${file.title}_title_container`} className='pt-4'>
-                                    <span key={`entry ${index}`} className='file_title font-bold text-gray-800 hover:underline'>{file.title}</span>
+                                    <span key={`entry_${index}`} className='file_title font-bold text-gray-800 hover:underline'>{file.title}</span>
                                 </div>
                             </div>
                         )

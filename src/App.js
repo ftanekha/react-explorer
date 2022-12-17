@@ -19,6 +19,7 @@ function App() {
             )
 
             return ()=> clearTimeout(toggleDisplay)
+            // eslint-disable-next-line react-hooks/exhaustive-deps
         },[]
     )
     useEffect(
@@ -30,6 +31,7 @@ function App() {
             )
 
             return ()=> clearTimeout(toggleButtonDisplay)
+            // eslint-disable-next-line react-hooks/exhaustive-deps
         },[]
     )
 
