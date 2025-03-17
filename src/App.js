@@ -10,11 +10,28 @@ export default function App() {
     const [userOsInfo, setUserOsInfo] = useState([])
     const [osDisplay, setOsDisplay] = useState(true)
     const [buttonDisplay, setButtonDisplay] = useState(1)
+    // const [prePathArray, setPrePathArray] = useState([])
 
     const userURI = 'http://127.0.0.1:3000/'
 
     const toggleOsDisplay = ()=> setOsDisplay(!osDisplay)
-    const navigate = ()=> alert('hio')
+    const navigateBack = ()=> {
+        fetch(
+            userURI,
+            {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ nextPath: '..' })
+            }
+        )
+        .then(
+            res => { 
+                if(res.ok) console.log('navigated back')
+            }
+        )
+        .catch(err => console.warn(`${err.code}: ${err.message}`))
+    }
+    const navigateForward = ()=> console.log('hi')
     const openDirectory = (fileType, fileName )=> {
         if(
             fileType === 'directory'
@@ -56,9 +73,9 @@ export default function App() {
         <div className='App' style={{position: 'relative'}}>
             <OsInfoApp osDisplay={osDisplay} userOsInfo={userOsInfo}/>
             <div id='navButtonsContainer' className='mx-auto flex'>
-                <NavButton direction={'back'} navigate={navigate} className={'border-l-4 rounded-l-md pr-4 pl-1'}/>
+                <NavButton direction={'back'} navigate={navigateBack} className={'border-l-4 rounded-l-md pr-4 pl-1'} title='go back'/>
                     <ToggleOsInfoAppButton buttonDisplay={buttonDisplay} toggleOsDisplay={toggleOsDisplay}/>            
-                <NavButton direction={'forward'} navigate={navigate} className={'border-r-4 rounded-r-md pl-4 pr-1'}/>
+                <NavButton direction={'forward'} navigate={navigateForward} className={'border-r-4 rounded-r-md pl-4 pr-1'} title='go forward'/>
             </div>
             <FsInfoApp userFsInfo={userFsInfo} openDirectory={openDirectory}/>
         </div>
