@@ -16,10 +16,8 @@ function getOsInfo(workingDirectory){
 
 process.on(
     'uncaughtException',
-    err => 
-    {
-        if(err) 
-        {
+    err => {
+        if(err) {
             console.error(`Uncaught exception detected - ${err.code}: ${err.message}!`)
             return process.exitCode = 1
         }

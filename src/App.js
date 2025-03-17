@@ -3,7 +3,7 @@ import FsInfoApp from './components/userFileSystemInfo/FsInfoApp.js'
 import OsInfoApp from './components/userOsInfo/OsInfoApp.js'
 import './app.css'
 
-function App() {
+export default function App() {
     const [userFsInfo, setUserFsInfo] = useState([])
     const [userOsInfo, setUserOsInfo] = useState([])
     const [osDisplay, setOsDisplay] = useState(false)
@@ -47,14 +47,14 @@ function App() {
         ,[userOsInfo, userFsInfo]
     )
 
-    useEffect(()=> setOsDisplay(!osDisplay), [])
     useEffect(()=> setButtonDisplay(1), [])
 
     return (
         <div className='App' style={{position: 'relative'}}>
             <OsInfoApp osDisplay={osDisplay} userOsInfo={userOsInfo}/>
             <div id='toggleFsInfoAppButton' style={{opacity: buttonDisplay}}
-                className='rollingButton bg-slate-800 rounded-full border-8 border-gray-400 text-gray-300 font-medium text-center pt-1'
+                className='rollingButton bg-slate-800 rounded-full border-8 border-gray-400 pt-1 text-gray-300 text-center  
+                    font-medium  hover:bg-slate-700 hover:text-slate-900 transition duration-500 cursor-pointer'
                 onClick={toggleOsDisplay} title='Toggle filesystem display'
             >FS</div>
             <FsInfoApp userFsInfo={userFsInfo} openDirectory={openDirectory}/>
@@ -62,4 +62,3 @@ function App() {
     )
 }
 
-export default App
