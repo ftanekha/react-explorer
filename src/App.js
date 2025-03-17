@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react'
 import FsInfoApp from './components/userFileSystemInfo/FsInfoApp.js'
 import OsInfoApp from './components/userOsInfo/OsInfoApp.js'
+import ToggleOsInfoAppButton from './components/toggleOsInfoAppButton.js'
+import NavButton from './components/navButton.js'
 import './app.css'
 
 export default function App() {
     const [userFsInfo, setUserFsInfo] = useState([])
     const [userOsInfo, setUserOsInfo] = useState([])
-    const [osDisplay, setOsDisplay] = useState(false)
-    const [buttonDisplay, setButtonDisplay] = useState(0)
+    const [osDisplay, setOsDisplay] = useState(true)
+    const [buttonDisplay, setButtonDisplay] = useState(1)
 
     const userURI = 'http://127.0.0.1:3000/'
 
     const toggleOsDisplay = ()=> setOsDisplay(!osDisplay)
+    const navigate = ()=> alert('hio')
     const openDirectory = (fileType, fileName )=> {
         if(
             fileType === 'directory'
@@ -52,11 +55,11 @@ export default function App() {
     return (
         <div className='App' style={{position: 'relative'}}>
             <OsInfoApp osDisplay={osDisplay} userOsInfo={userOsInfo}/>
-            <div id='toggleFsInfoAppButton' style={{opacity: buttonDisplay}}
-                className='rollingButton bg-slate-800 rounded-full border-8 border-gray-400 pt-1 text-gray-300 text-center  
-                    font-medium  hover:bg-slate-700 hover:text-slate-900 transition duration-500 cursor-pointer'
-                onClick={toggleOsDisplay} title='Toggle filesystem display'
-            >FS</div>
+            <div id='navButtonsContainer' className='mx-auto flex'>
+                <NavButton direction={'back'} navigate={navigate} className={'border-l-4 rounded-l-md pr-4 pl-1'}/>
+                    <ToggleOsInfoAppButton buttonDisplay={buttonDisplay} toggleOsDisplay={toggleOsDisplay}/>            
+                <NavButton direction={'forward'} navigate={navigate} className={'border-r-4 rounded-r-md pl-4 pr-1'}/>
+            </div>
             <FsInfoApp userFsInfo={userFsInfo} openDirectory={openDirectory}/>
         </div>
     )
