@@ -1,6 +1,6 @@
 const os = require('node:os')
 
-function getOsInfo(){
+function getOsInfo(workingDirectory){
     const osInfo = 
     {
         'host name': os.hostname(),
@@ -8,9 +8,9 @@ function getOsInfo(){
         'home directory': os.homedir(), 
         'os platform': os.platform(), 
         'os type': os.type(), 
-        'os architecture': os.arch()
+        'os architecture': os.arch(),
+        'working directory': workingDirectory
     } 
-
    return osInfo
 }
 

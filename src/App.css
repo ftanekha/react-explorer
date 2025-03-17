@@ -1,33 +1,9 @@
-@keyframes fadeToggleButtonIn{
-  0% {
-      opacity: 0;
-  }
-  50%{
-      opacity: 0;
-  }
-  75%{
-      opacity: 0;
-      left: 0;
-  }
-  95%{
-    opacity: .1;
-    left: 0;
-  }
-  100% {
-      opacity: 1;
-      left: 47.5%;
-  }
-}
-
 #toggleFsInfoAppButton{
-  width:50px;
+  width: 50px;
   height: 50px;
   border-style: inset;
   opacity: 0;
   position: relative;
   left: 47.5%;
   top: 65px;
-  animation-name: fadeToggleButtonIn;
-  animation-duration: 3s;
-  animation-delay: 29s;
 }
