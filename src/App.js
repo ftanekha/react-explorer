@@ -51,7 +51,12 @@ export default function App() {
         if(!pathsVisited) return alert("No URLs in User's History to navigate to!")
         
         const currentPathPosition = pathsVisited.indexOf(currentPath)
-        const targetPath = pathsVisited[currentPathPosition + 1]
+        const targetPathPosition = currentPathPosition + 1
+
+        if( targetPathPosition >= pathsVisited.length){
+            return alert("You've reached the maximum nuber of forward navitagions!")
+        }
+        const targetPath = pathsVisited[targetPathPosition]
 
         fetch(
             userURI,
@@ -133,12 +138,12 @@ export default function App() {
     )
 
     return (
-        <div className='App' style={{position: 'relative'}}>
+        <div className='flex-column items-center'>
             <OsInfoApp osDisplay={osDisplay} userOsInfo={userOsInfo}/>
-            <div id='navButtonsContainer' className='mx-auto flex'>
-                <NavButton direction={'back'} navigate={navigateBack} className={'border-l-4 rounded-l-md pr-4 pl-1'} title='go back'/>
+            <div id='navButtonsContainer' className='w-4/5 mx-auto flex'>
+                <NavButton direction={'back'} navigate={navigateBack} className={'border-l-8 pr-4 pl-1'} title='go back'/>
                     <ToggleOsInfoAppButton toggleOsDisplay={toggleOsDisplay}/>            
-                <NavButton direction={'forward'} navigate={navigateForward} className={'border-r-4 rounded-r-md pl-4 pr-1'} title='go forward'/>
+                <NavButton direction={'forward'} navigate={navigateForward} className={'border-r-8 pl-4 pr-1'} title='go forward'/>
             </div>
             <FsInfoApp userFsInfo={userFsInfo} openDirectory={openDirectory}/>
         </div>
