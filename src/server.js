@@ -23,7 +23,7 @@ app.get(
         fs.readdir(
             currentPath, {withFileTypes: true},
             (err, files)=>{
-                if(err) return console.error(`${err.code}: ${err.message}`)
+                if(err) return console.error(err.message)
 
                 const currentPathFiles = []
                 files.forEach(
@@ -35,7 +35,14 @@ app.get(
                     )
                 )
 
-                res.send([getUserOsInfo(currentPath), currentPathFiles])
+                res.send(
+                    {
+                        userOsInfo: Object.entries(getUserOsInfo(currentPath)), 
+                        currentPathFiles,
+                        canNavigateBack: currentPath === 'C:\\' ? false : true, 
+                        currentPath
+                    }
+                )
             }
         )
     }
@@ -45,44 +52,69 @@ app.post(
     '/', 
     jsonParser,
     (req, res) => {
-        if(!req.body) return res.send('no request body received')
-        
-        const {nextPath} = req.body
-        currentPath = path.join(currentPath, nextPath)
-        //handle backward navigation
-        if(nextPath === '..'){
-            const indexOfLastSlash = currentPath.lastIndexOf('/')
-            const prevPath = currentPath.slice(0, indexOfLastSlash)
-            //handle maximum backward navigation
-            if(currentPath === 'C:\\'){
-                return res.status(400).send({
-                    message: 'Maximum backward navigation reached!'
-                })
-            }//
+        const {nextPath, direction} = req.body
+        if(direction === 'back'){
+            currentPath = nextPath
 
-            fs.readdir(
-                prevPath, {withFileTypes: true},
-                (err, files)=>{
-                    if(err) return console.error(`${err.code}: ${err.message}`)
-    
-                    const currentPathFiles = []
-                    files.forEach(
-                        file => currentPathFiles.push(
-                            {
-                                title: file.name,
-                                type: file.isDirectory() ? 'directory' : 'file'
-                            }
-                        )
-                    )
-    
-                    res.send([getUserOsInfo(currentPath), currentPathFiles])
-                }
-            )//
-        }else{
             fs.readdir(
                 currentPath, {withFileTypes: true},
                 (err, files)=>{
-                    if(err) return console.error(`${err.code}: ${err.message}`)
+                    if(err) return console.error(err.message)
+    
+                    const currentPathFiles = []
+                    files.forEach(
+                        file => currentPathFiles.push(
+                            {
+                                title: file.name,
+                                type: file.isDirectory() ? 'directory' : 'file'
+                            }
+                        )
+                    )
+                    
+                    res.send(
+                        {
+                            userOsInfo: Object.entries(getUserOsInfo(currentPath)), 
+                            currentPathFiles,
+                            canNavigateBack: currentPath === 'C:\\' ? false : true, 
+                            currentPath
+                        }
+                    )
+                }
+            )
+        }else if(direction === 'forward'){
+            currentPath = nextPath
+
+            fs.readdir(
+                nextPath, {withFileTypes: true},
+                (err, files)=>{
+                    if(err) return console.error(err.message)
+    
+                    const currentPathFiles = []
+                    files.forEach(
+                        file => currentPathFiles.push(
+                            {
+                                title: file.name,
+                                type: file.isDirectory() ? 'directory' : 'file'
+                            }
+                        )
+                    )
+
+                    res.send(
+                        {
+                            userOsInfo: Object.entries(getUserOsInfo(currentPath)), 
+                            currentPathFiles,
+                            canNavigateBack: currentPath === 'C:\\' ? false : true, 
+                            currentPath
+                        }
+                    )
+                }
+            )
+        }else{
+            currentPath = path.join(currentPath, nextPath)
+            fs.readdir(
+                currentPath, {withFileTypes: true},
+                (err, files)=>{
+                    if(err) return console.error(err.message)
     
                     const currentPathFiles = []
                     files.forEach(
@@ -94,7 +126,14 @@ app.post(
                         )
                     )
     
-                    res.send([getUserOsInfo(currentPath), currentPathFiles])
+                    res.send(
+                        {
+                            userOsInfo: Object.entries(getUserOsInfo(currentPath)), 
+                            currentPathFiles,
+                            canNavigateBack: currentPath === 'C:\\' ? false : true, 
+                            currentPath
+                        }
+                    )
                 }
             )
         }

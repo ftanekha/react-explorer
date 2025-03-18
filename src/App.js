@@ -3,36 +3,81 @@ import FsInfoApp from './components/userFileSystemInfo/FsInfoApp.js'
 import OsInfoApp from './components/userOsInfo/OsInfoApp.js'
 import ToggleOsInfoAppButton from './components/toggleOsInfoAppButton.js'
 import NavButton from './components/navButton.js'
-import './app.css'
+import './App.css'
 
 export default function App() {
     const [userFsInfo, setUserFsInfo] = useState([])
     const [userOsInfo, setUserOsInfo] = useState([])
     const [osDisplay, setOsDisplay] = useState(true)
-    const [buttonDisplay, setButtonDisplay] = useState(1)
-    // const [prePathArray, setPrePathArray] = useState([])
+    const [currentPath, setCurrentPath] = useState('')
+    const [canNavigateBack, setCanNavigateBack] = useState(true)
+    const [pathsVisited, setPathsVisited] = useState([''])
 
     const userURI = 'http://127.0.0.1:3000/'
 
     const toggleOsDisplay = ()=> setOsDisplay(!osDisplay)
-    const navigateBack = ()=> {
+
+    function navigateBack(){
+        if(!canNavigateBack) return alert('Maximum backward navigation reached!')
+
+        const currentPathPosition = pathsVisited.indexOf(currentPath)
+        const targetPath = pathsVisited[currentPathPosition - 1]
+        if(currentPath === 'C:\\Users') return
+        
         fetch(
             userURI,
             {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ nextPath: '..' })
+                body: JSON.stringify({ nextPath: targetPath, direction: 'back' })
             }
         )
+        .then(res => res.json())
         .then(
-            res => { 
-                if(res.ok) console.log('navigated back')
+            data => {
+                //update UI
+                setUserOsInfo(data.userOsInfo)
+                setUserFsInfo(data.currentPathFiles)
+                //
+                setCurrentPath(data.currentPath)
+                setCanNavigateBack(data.canNavigateBack)
+                setPathsVisited([...pathsVisited, data.currentPath])
             }
         )
-        .catch(err => console.warn(`${err.code}: ${err.message}`))
+        .catch(err => console.warn(err.message))
     }
-    const navigateForward = ()=> console.log('hi')
-    const openDirectory = (fileType, fileName )=> {
+
+    function navigateForward(){
+        if(!pathsVisited) return alert("No URLs in User's History to navigate to!")
+        
+        const currentPathPosition = pathsVisited.indexOf(currentPath)
+        const targetPath = pathsVisited[currentPathPosition + 1]
+
+        fetch(
+            userURI,
+            {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ nextPath: targetPath, direction: 'forward' })
+            }
+        )
+        .then(res => res.json())
+        .then(
+            data => {
+                //update UI
+                setUserOsInfo(data.userOsInfo)
+                setUserFsInfo(data.currentPathFiles)
+                //
+                setCurrentPath(data.currentPath)
+                setCanNavigateBack(data.canNavigateBack)
+                setPathsVisited([...pathsVisited, data.currentPath])
+            }
+        )
+        .catch(err => console.warn(err.message))
+    }
+
+    function openDirectory(fileType, fileName){
+        
         if(
             fileType === 'directory'
             &&//not a system folder
@@ -48,37 +93,54 @@ export default function App() {
                     body: JSON.stringify({ nextPath: fileName })
                 }
             )
-            .then(userData => userData.json())
-            .then(userData => setUserFsInfo(userData[1]))
-            .catch(err => console.warn(`${err.code}: ${err.message}`))
+            .then(
+                res => {
+                    if(res.status === 200){
+                        return res.json()
+                    }
+                    throw Error(res.status)
+                }
+            )
+            .then(
+                data => {
+                    setUserOsInfo(data.userOsInfo)
+                    setUserFsInfo(data.currentPathFiles)
+                    setCanNavigateBack(true)
+                    setCurrentPath(data.currentPath)
+                    setPathsVisited([...pathsVisited, data.currentPath])
+                }
+            )
+            .catch(err => console.warn(err.message))
         }
     }
 
     useEffect(
         ()=> {
             fetch(userURI)
-            .then(userData => userData.json())
-            .then(userData => {
-                setUserOsInfo(Object.entries(userData[0]))
-                setUserFsInfo(userData[1])
-            })
-            .catch(err => console.warn(`${err.code}: ${err.message}`))
+            .then(res => res.json())
+            .then(
+                data => {
+                    setUserOsInfo(data.userOsInfo)
+                    setUserFsInfo(data.currentPathFiles)
+                    setCurrentPath(data.currentPath)
+                    setPathsVisited([data.currentPath])
+                    setCanNavigateBack(false)
+                }
+            )
+            .catch(err => console.warn(err.message))
         }
-        ,[userOsInfo, userFsInfo]
+        ,[]
     )
-
-    useEffect(()=> setButtonDisplay(1), [])
 
     return (
         <div className='App' style={{position: 'relative'}}>
             <OsInfoApp osDisplay={osDisplay} userOsInfo={userOsInfo}/>
             <div id='navButtonsContainer' className='mx-auto flex'>
                 <NavButton direction={'back'} navigate={navigateBack} className={'border-l-4 rounded-l-md pr-4 pl-1'} title='go back'/>
-                    <ToggleOsInfoAppButton buttonDisplay={buttonDisplay} toggleOsDisplay={toggleOsDisplay}/>            
+                    <ToggleOsInfoAppButton toggleOsDisplay={toggleOsDisplay}/>            
                 <NavButton direction={'forward'} navigate={navigateForward} className={'border-r-4 rounded-r-md pl-4 pr-1'} title='go forward'/>
             </div>
             <FsInfoApp userFsInfo={userFsInfo} openDirectory={openDirectory}/>
         </div>
     )
 }
-
