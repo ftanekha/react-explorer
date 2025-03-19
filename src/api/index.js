@@ -5,10 +5,10 @@ const fs = require('node:fs')
 const path = require('path')
 const bodyParser = require('body-parser')
 
-const getUserOsInfo = require('./components/userOsInfo/osInfo.js')
+const getUserOsInfo = require('../components/userOsInfo/osInfo.js')
 const homeDir = os.homedir()
 
-const port = 8080
+const port = 3000
 
 const app = express()
 const jsonParser = bodyParser.json()

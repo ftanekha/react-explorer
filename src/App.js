@@ -13,7 +13,7 @@ export default function App() {
     const [canNavigateBack, setCanNavigateBack] = useState(true)
     const [pathsVisited, setPathsVisited] = useState([''])
 
-    const userURI = 'http://127.0.0.1:8080/'
+    const userURI = 'http://127.0.0.1:3000/'
 
     const toggleOsDisplay = ()=> setOsDisplay(!osDisplay)
 
