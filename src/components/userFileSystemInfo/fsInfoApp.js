@@ -13,7 +13,27 @@ export default function App({userFsInfo, openDirectory}){
                                 </div>
                                 <div key={`${title}_title_container`} className='py-4'>
                                     <span key={`entry_${index}`} onClick={()=> openDirectory(type, title)}
-                                        className={`file_title font-medium ${type === 'directory' ? 'text-slate-300 hover:underline cursor-pointer' : 'text-gray-950'}`}>{title}
+                                        className={
+                                            `file_title font-medium 
+                                            ${
+                                                type === 'directory' 
+                                                && 
+                                                (
+                                                    title.charAt(0) !== '.' 
+                                                    || 
+                                                    title.charAt(0) === title.charAt(0).toLowerCase()
+                                                )
+                                                ? 'text-gray-500' : 'text-gray-950'} 
+                                            ${
+                                                type === 'directory'
+                                                && title.charAt(0) !== '.' 
+                                                && title.charAt(0) === title.charAt(0).toLowerCase()
+                                                ? 'text-slate-300 hover:underline cursor-pointer' : 'cursor-none'
+                                            }`
+                                            .trim()
+                                        }
+                                    >
+                                        {title}
                                     </span>
                                 </div>
                             </div>

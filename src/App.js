@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import FsInfoApp from './components/userFileSystemInfo/FsInfoApp.js'
+import FsInfoApp from './components/userFileSystemInfo/fsInfoApp.js'
 import OsInfoApp from './components/userOsInfo/OsInfoApp.js'
 import ToggleOsInfoAppButton from './components/toggleOsInfoAppButton.js'
 import NavButton from './components/navButton.js'
@@ -13,16 +13,18 @@ export default function App() {
     const [canNavigateBack, setCanNavigateBack] = useState(true)
     const [pathsVisited, setPathsVisited] = useState([''])
 
-    const userURI = 'http://127.0.0.1:3000/'
+    const userURI = 'http://127.0.0.1:8080/'
 
     const toggleOsDisplay = ()=> setOsDisplay(!osDisplay)
 
     function navigateBack(){
-        if(!canNavigateBack) return alert('Maximum backward navigation reached!')
-
         const currentPathPosition = pathsVisited.indexOf(currentPath)
-        const targetPath = pathsVisited[currentPathPosition - 1]
-        if(currentPath === 'C:\\Users') return
+        const targetPathPosition = currentPathPosition - 1
+        const targetPath = pathsVisited[targetPathPosition]
+
+        if(!canNavigateBack || targetPathPosition < 0){
+            return alert('Maximum backward navigation reached!')
+        }
         
         fetch(
             userURI,
@@ -53,8 +55,8 @@ export default function App() {
         const currentPathPosition = pathsVisited.indexOf(currentPath)
         const targetPathPosition = currentPathPosition + 1
 
-        if( targetPathPosition >= pathsVisited.length){
-            return alert("You've reached the maximum nuber of forward navitagions!")
+        if(targetPathPosition >= pathsVisited.length){
+            return alert('Maximum forward navigation reached!')
         }
         const targetPath = pathsVisited[targetPathPosition]
 

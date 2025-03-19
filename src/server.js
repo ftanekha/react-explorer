@@ -8,7 +8,7 @@ const bodyParser = require('body-parser')
 const getUserOsInfo = require('./components/userOsInfo/osInfo.js')
 const homeDir = os.homedir()
 
-const port = process.env.PORT || 8080
+const port = 8080
 
 const app = express()
 const jsonParser = bodyParser.json()
