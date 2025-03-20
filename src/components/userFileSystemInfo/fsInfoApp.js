@@ -2,7 +2,7 @@ import File from './file.js'
 
 export default function App({userFsInfo, openDirectory}){
     return (
-        <div className='m-10 text-xs'>
+        <div className='fsInfoApp m-10 text-xs'>
             {
                 userFsInfo.map(
                     ({title, type} , index)=> {

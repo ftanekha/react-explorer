@@ -1,7 +1,6 @@
-export default function OsInfoApp ({osDisplay, userOsInfo}){
+export default function OsInfoApp ({osDisplay, userOsInfo, displayOsInfoAsNoneOrFlex}){
     return (
-        <div className={`osInfoApp w-full md:w-1/4 pt-4 mx-auto text-gray-300 ${osDisplay ? 'flex justify-center' : 'hidden'}`} 
-            style={{height: '50vh'}}>
+        <div className={`osInfoApp w-full md:w-1/4 pt-4 mx-auto text-gray-300 justify-center ${osDisplay ? 'os-in-view' : 'os-hidden'} ${displayOsInfoAsNoneOrFlex}`}>
             <table className='table-auto'>
                 <thead>
                     <tr className='text-center'>
