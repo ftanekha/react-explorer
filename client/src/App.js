@@ -14,7 +14,7 @@ export default function App() {
     const [pathsVisited, setPathsVisited] = useState([''])
     const [displayOsInfoAsNoneOrFlex, setDisplayOsInfoAsNoneOrFlex] = useState('flex')
 
-    const userURI = 'http://127.0.0.1:8080/'
+    const userURI = '../../api/index.js'
 
     const toggleOsDisplay = ()=> {
         setOsDisplay(!osDisplay)

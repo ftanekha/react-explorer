@@ -1,0 +1,2 @@
+.fsInfoApp,.osInfoApp{transition:2s}.osInfoApp{height:50vh;position:relative}.os-in-view{opacity:1}.os-hidden{-webkit-animation:os-hidden 2s 1;animation:os-hidden 2s 1;opacity:0}#navButtonsContainer{align-items:center;border-style:inset;display:flex;height:50px;position:relative;top:65px}#navButtonsContainer button{transition:.3s}#toggleOsInfoAppButton{border-style:inset;height:50px}@-webkit-keyframes os-hidden{0%{top:0}to{top:-50vh}}@keyframes os-hidden{0%{top:0}to{top:-50vh}}
+/*# sourceMappingURL=main.86016a9c.css.map*/
