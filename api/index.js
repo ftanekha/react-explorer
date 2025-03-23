@@ -1,4 +1,4 @@
-const serverless = require('serverless-http');
+const serverless = require('serverless-http')
 const express = require('express')
 const cors = require('cors')
 const os = require('node:os')
@@ -141,7 +141,7 @@ app.post(
     }
 )
 
-module.exports.handler = serverless(app);
+module.exports.handler = serverless(app)
 
 // app.listen(
 //     port, 
