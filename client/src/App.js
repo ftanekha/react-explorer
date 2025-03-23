@@ -15,7 +15,7 @@ export default function App() {
     const [displayOsInfoAsNoneOrFlex, setDisplayOsInfoAsNoneOrFlex] = useState('flex')
 
     // const userURI = 'http://localhost:8080'
-    const userURI = '../../api/index.js'
+    const userURI = '/api/'
 
     const toggleOsDisplay = ()=> {
         setOsDisplay(!osDisplay)
