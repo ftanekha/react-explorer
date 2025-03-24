@@ -1,17 +1,13 @@
-.fsInfoApp{
-  transition: 2s;
-}
 .osInfoApp{
-  height: 50vh;
-  position: relative;
-  transition: 2s;
+  transition: .75s;
 }
 .os-in-view{
+  height: 50vh;
   opacity: 1;
 }
 .os-hidden{
   opacity: 0;
-  animation: os-hidden 2s 1;
+  height: 1vh;
 }
 #navButtonsContainer{
   height: 50px;
@@ -27,9 +23,4 @@
 #toggleOsInfoAppButton{
   height: 50px;
   border-style: inset;
-}
-
-@keyframes os-hidden{
-  0%{top: 0}
-  100%{top: -50vh;}
 }

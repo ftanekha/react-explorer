@@ -1,4 +1,4 @@
-const serverless = require('serverless-http')
+// const serverless = require('serverless-http')
 const express = require('express')
 const cors = require('cors')
 const os = require('node:os')
@@ -9,7 +9,7 @@ const bodyParser = require('body-parser')
 const getUserOsInfo = require('../client/src/components/userOsInfo/osInfo.js')
 const homeDir = os.homedir()
 
-// const port = 8080
+const port = 8080
 
 const app = express()
 const jsonParser = bodyParser.json()
@@ -141,9 +141,9 @@ app.post(
     }
 )
 
-module.exports.handler = serverless(app)
+// module.exports.handler = serverless(app)
 
-// app.listen(
-//     port, 
-//     ()=> console.log(`Express app listening on port ${port}`)
-// )
+app.listen(
+    port, 
+    ()=> console.log(`Express app listening on port ${port}`)
+)

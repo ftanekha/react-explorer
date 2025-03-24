@@ -1,10 +1,10 @@
-export default function OsInfoApp ({osDisplay, userOsInfo, displayOsInfoAsNoneOrFlex}){
+export default function OsInfoApp ({osDisplay, userOsInfo}){
     return (
-        <div className={`osInfoApp w-full md:w-1/4 pt-4 mx-auto text-gray-300 justify-center ${osDisplay ? 'os-in-view' : 'os-hidden'} ${displayOsInfoAsNoneOrFlex}`}>
+        <div className={`osInfoApp w-full md:w-1/4 pt-4 mx-auto text-gray-300 justify-center flex ${osDisplay ? 'os-in-view' : 'os-hidden'}`}>
             <table className='table-auto'>
                 <thead>
                     <tr className='text-center'>
-                        <th className='text-gray-600 text-xs md:text-base pb-6' colSpan={2}>Operation System Information</th>
+                        <th className={`text-gray-600 text-xs md:text-base pb-6`} colSpan={2}>Operation System Information</th>
                     </tr>
                 </thead>
                 <tbody>

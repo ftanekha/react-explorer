@@ -12,24 +12,24 @@ export default function App() {
     const [currentPath, setCurrentPath] = useState('')
     const [canNavigateBack, setCanNavigateBack] = useState(true)
     const [pathsVisited, setPathsVisited] = useState([''])
-    const [displayOsInfoAsNoneOrFlex, setDisplayOsInfoAsNoneOrFlex] = useState('flex')
+    // const [displayOsInfoAsNoneOrFlex, setDisplayOsInfoAsNoneOrFlex] = useState('flex')
 
-    // const userURI = 'http://localhost:8080'
-    const userURI = '/api/'
+    const userURI = 'http://localhost:8080'
+    // const userURI = '/api/'
 
     const toggleOsDisplay = ()=> {
         setOsDisplay(!osDisplay)
-        if(displayOsInfoAsNoneOrFlex === 'flex'){
-            const timer = setTimeout(
-                ()=> {
-                    setDisplayOsInfoAsNoneOrFlex('hidden')
-                    clearTimeout(timer)
-                },
-                2000
-            )
-        }else{
-            setDisplayOsInfoAsNoneOrFlex('flex')
-        }
+        // if(displayOsInfoAsNoneOrFlex === 'flex'){
+        //     const timer = setTimeout(
+        //         ()=> {
+        //             setDisplayOsInfoAsNoneOrFlex('hidden')
+        //             clearTimeout(timer)
+        //         },
+        //         2000
+        //     )
+        // }else{
+        //     setDisplayOsInfoAsNoneOrFlex('flex')
+        // }
         
     }
 
@@ -157,7 +157,7 @@ export default function App() {
 
     return (
         <div className='flex-column items-center relative'>
-            <OsInfoApp osDisplay={osDisplay} userOsInfo={userOsInfo} displayOsInfoAsNoneOrFlex={displayOsInfoAsNoneOrFlex}/>
+            <OsInfoApp osDisplay={osDisplay} userOsInfo={userOsInfo}/>
             <div id='navButtonsContainer' className='w-4/5 mx-auto flex'>
                 <NavButton direction={'back'} navigate={navigateBack} className={'border-l-8 pr-4 pl-1'} title='go back'/>
                     <ToggleOsInfoAppButton toggleOsDisplay={toggleOsDisplay}/>            
