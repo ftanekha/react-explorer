@@ -12,25 +12,11 @@ export default function App() {
     const [currentPath, setCurrentPath] = useState('')
     const [canNavigateBack, setCanNavigateBack] = useState(true)
     const [pathsVisited, setPathsVisited] = useState([''])
-    // const [displayOsInfoAsNoneOrFlex, setDisplayOsInfoAsNoneOrFlex] = useState('flex')
 
-    const userURI = 'http://localhost:8080'
-    // const userURI = '/api/'
+    const userURI = process.env.REACT_APP_RAILWAY_SERVER_URL || 'http://localhost:8080'
 
     const toggleOsDisplay = ()=> {
         setOsDisplay(!osDisplay)
-        // if(displayOsInfoAsNoneOrFlex === 'flex'){
-        //     const timer = setTimeout(
-        //         ()=> {
-        //             setDisplayOsInfoAsNoneOrFlex('hidden')
-        //             clearTimeout(timer)
-        //         },
-        //         2000
-        //     )
-        // }else{
-        //     setDisplayOsInfoAsNoneOrFlex('flex')
-        // }
-        
     }
 
     function navigateBack(){
@@ -151,17 +137,16 @@ export default function App() {
                 }
             )
             .catch(err => console.warn(err.message))
-        }
-        ,[]
+        },[]
     )
 
     return (
         <div className='flex-column items-center relative'>
             <OsInfoApp osDisplay={osDisplay} userOsInfo={userOsInfo}/>
             <div id='navButtonsContainer' className='w-4/5 mx-auto flex'>
-                <NavButton direction={'back'} navigate={navigateBack} className={'border-l-8 pr-4 pl-1'} title='go back'/>
+                <NavButton direction={'back'} navigate={navigateBack} className={'border-l-8 pr-4 pl-1'} title='navigate backwards'/>
                     <ToggleOsInfoAppButton toggleOsDisplay={toggleOsDisplay}/>            
-                <NavButton direction={'forward'} navigate={navigateForward} className={'border-r-8 pl-4 pr-1'} title='go forward'/>
+                <NavButton direction={'forward'} navigate={navigateForward} className={'border-r-8 pl-4 pr-1'} title='navigate forward'/>
             </div>
             <FsInfoApp userFsInfo={userFsInfo} openDirectory={openDirectory}/>
         </div>
